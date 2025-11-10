@@ -1,0 +1,430 @@
+const phones = [
+  {
+    id: "iqoo-13",
+    name: "iQOO 13",
+    brand: "iQOO",
+    chipset: "Snapdragon 8 Elite",
+    cores: "octa-core",
+    variants: [
+      { label: "16 GB / 512 GB", antutu: { cpu: 568460, gpu: 1166830, mem: 481373, ux: 431783, total: 2648446 }, priceINR: 69999 },
+      { label: "12 GB / 256 GB", antutu: { cpu: 552100, gpu: 1121000, mem: 451000, ux: 420000, total: 2544100 }, priceINR: 62999 }
+    ],
+    image: "images/iqoo-13.jpg",
+    sources: ["AnTuTu ranking"]
+  },
+  {
+    id: "red-magic-10-pro",
+    name: "Red Magic 10 Pro",
+    brand: "Red Magic",
+    chipset: "Snapdragon 8 Elite",
+    cores: "octa-core",
+    variants: [
+      { label: "12 GB / 256 GB", antutu: { cpu: 591775, gpu: 1197689, mem: 481971, ux: 398630, total: 2670065 }, priceINR: 59999 },
+      { label: "16 GB / 512 GB", antutu: { cpu: 600000, gpu: 1210000, mem: 490000, ux: 405000, total: 2705000 }, priceINR: 67999 }
+    ],
+    image: "images/red-magic-10-pro.jpg",
+    sources: ["AnTuTu ranking"]
+  },
+  {
+    id: "oneplus-13",
+    name: "OnePlus 13",
+    brand: "OnePlus",
+    chipset: "Snapdragon 8 Elite",
+    cores: "octa-core",
+    variants: [
+      { label: "16 GB / 512 GB", antutu: { cpu: 528315, gpu: 1085121, mem: 484455, ux: 401505, total: 2499396 }, priceINR: 71999 },
+      { label: "12 GB / 256 GB", antutu: { cpu: 515000, gpu: 1050000, mem: 460000, ux: 395000, total: 2410000 }, priceINR: 64999 }
+    ],
+    image: "images/oneplus-13.jpg",
+    sources: ["AnTuTu ranking"]
+  },
+  {
+    id: "mi-15-ultra",
+    name: "Mi 15 Ultra",
+    brand: "Xiaomi",
+    chipset: "Snapdragon 8 Elite",
+    cores: "octa-core",
+    variants: [
+      { label: "16 GB / 512 GB", antutu: { cpu: 529455, gpu: 1019238, mem: 467800, ux: 410722, total: 2427215 }, priceINR: 74999 }
+    ],
+    image: "images/mi-15-ultra.jpg",
+    sources: ["AnTuTu ranking"]
+  },
+  {
+    id: "poco-f7-ultra",
+    name: "POCO F7 Ultra",
+    brand: "POCO",
+    chipset: "Snapdragon 8 Elite",
+    cores: "octa-core",
+    variants: [
+      { label: "16 GB / 512 GB", antutu: { cpu: 528620, gpu: 1017149, mem: 463876, ux: 429108, total: 2438753 }, priceINR: 49999 }
+    ],
+    image: "images/poco-f7-ultra.jpg",
+    sources: ["AnTuTu ranking"]
+  },
+  {
+    id: "poco-f7-pro",
+    name: "POCO F7 Pro",
+    brand: "POCO",
+    chipset: "Snapdragon 8 Gen 3",
+    cores: "octa-core",
+    variants: [
+      { label: "12 GB / 512 GB", antutu: { cpu: 383547, gpu: 730601, mem: 380967, ux: 367376, total: 1862491 }, priceINR: 34999 }
+    ],
+    image: "images/poco-f7-pro.jpg",
+    sources: ["AnTuTu ranking"]
+  },
+  {
+    id: "iqoo-neo10-pro-plus",
+    name: "iQOO Neo10 Pro+",
+    brand: "iQOO",
+    chipset: "Snapdragon 8 Elite",
+    cores: "octa-core",
+    variants: [
+      { label: "12 GB / 256 GB", antutu: { cpu: 570754, gpu: 1108124, mem: 439789, ux: 418482, total: 2537149 }, priceINR: 42999 }
+    ],
+    image: "images/iqoo-neo10-pro-plus.jpg",
+    sources: ["AnTuTu ranking"]
+  },
+  {
+    id: "vivo-x200-pro",
+    name: "vivo X200 Pro",
+    brand: "vivo",
+    chipset: "Dimensity 9400",
+    cores: "octa-core",
+    variants: [
+      { label: "12 GB / 256 GB", antutu: { cpu: 570623, gpu: 1049397, mem: 380393, ux: 411178, total: 2411591 }, priceINR: 69999 }
+    ],
+    image: "images/vivo-x200-pro.jpg",
+    sources: ["AnTuTu ranking"]
+  },
+  {
+    id: "vivo-x200-pro-mini",
+    name: "vivo X200 Pro mini",
+    brand: "vivo",
+    chipset: "Dimensity 9400",
+    cores: "octa-core",
+    variants: [
+      { label: "12 GB / 256 GB", antutu: { cpu: 533670, gpu: 1015804, mem: 368629, ux: 396787, total: 2314890 }, priceINR: 59999 }
+    ],
+    image: "images/vivo-x200-pro-mini.jpg",
+    sources: ["AnTuTu ranking"]
+  },
+  {
+    id: "realme-neo7",
+    name: "realme Neo7",
+    brand: "realme",
+    chipset: "Dimensity 9300+",
+    cores: "octa-core",
+    variants: [
+      { label: "12 GB / 256 GB", antutu: { cpu: 509023, gpu: 817479, mem: 366742, ux: 373026, total: 2066270 }, priceINR: 32999 }
+    ],
+    image: "images/realme-neo7.jpg",
+    sources: ["AnTuTu ranking"]
+  }
+];
+
+const state = {
+  current: [...phones],
+  selectedVariantById: {},
+  view: "catalog"
+};
+
+// Formatting
+const INR = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+const INT = new Intl.NumberFormat('en-IN');
+
+function getVariant(phone) {
+  const idx = state.selectedVariantById[phone.id] ?? 0;
+  return phone.variants[idx];
+}
+function totalScore(phone) { return getVariant(phone).antutu.total; }
+
+// Elements
+const cardsEl = document.getElementById('cards');
+const searchEl = document.getElementById('search');
+const filterBrandEl = document.getElementById('filter-brand');
+const filterChipsetEl = document.getElementById('filter-chipset');
+const filterScoreEl = document.getElementById('filter-score');
+const heroImg = document.getElementById('hero-img');
+const viewTopBtn = document.getElementById('view-top');
+const nav = document.querySelector('.nav');
+const viewCatalog = document.getElementById('view-catalog');
+const viewChipsets = document.getElementById('view-chipsets');
+const viewCompare = document.getElementById('view-compare');
+const viewAbout = document.getElementById('view-about');
+
+function switchView(viewName) {
+  state.view = viewName;
+  [viewCatalog, viewChipsets, viewCompare, viewAbout].forEach(v => v.classList.add('hidden'));
+  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+  if (viewName === 'catalog') { viewCatalog.classList.remove('hidden'); }
+  if (viewName === 'chipsets') { viewChipsets.classList.remove('hidden'); renderChipsetOverview(); }
+  if (viewName === 'compare') { viewCompare.classList.remove('hidden'); populateCompareSelectors(); }
+  if (viewName === 'about') { viewAbout.classList.remove('hidden'); }
+  document.querySelector(`.nav-link[data-view="${viewName}"]`).classList.add('active');
+}
+nav.addEventListener('click', (e) => {
+  const btn = e.target.closest('.nav-link');
+  if (!btn) return;
+  switchView(btn.getAttribute('data-view'));
+});
+
+function renderCards(list) {
+  cardsEl.innerHTML = '';
+  list.forEach(p => {
+    const v = getVariant(p);
+    const a = v.antutu;
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${p.image}" alt="${p.name}" loading="lazy">
+      <div class="card-body">
+        <div class="card-title">
+          <h4>${p.name}</h4>
+          <span class="badge">${INT.format(a.total)}</span>
+        </div>
+        <div class="meta">${p.brand} • ${p.chipset} • ${p.cores}</div>
+        <div class="spec">
+          <span><strong>Variant:</strong> ${v.label}</span>
+          <span><strong>Price:</strong> ${v.priceINR ? INR.format(v.priceINR) : '—'}</span>
+        </div>
+        <div class="kpi">
+          <div class="pill"><div class="label">CPU</div><div class="value">${INT.format(a.cpu)}</div></div>
+          <div class="pill"><div class="label">GPU</div><div class="value">${INT.format(a.gpu)}</div></div>
+          <div class="pill"><div class="label">MEM</div><div class="value">${INT.format(a.mem)}</div></div>
+          <div class="pill"><div class="label">UX</div><div class="value">${INT.format(a.ux)}</div></div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <select class="button" data-id="${p.id}" data-action="variant">
+          ${p.variants.map((vv, i) => `<option value="${i}" ${v.label===vv.label?'selected':''}>${vv.label}</option>`).join('')}
+        </select>
+        <button class="button primary" data-id="${p.id}" data-action="view">View performance</button>
+        <button class="button" data-id="${p.id}" data-action="add-compare">Add to compare</button>
+      </div>
+    `;
+    cardsEl.appendChild(card);
+  });
+}
+
+function topScorer(list) { return list.slice().sort((a,b) => totalScore(b) - totalScore(a))[0]; }
+function updateHero() {
+  const top = topScorer(state.current);
+  if (!top) return;
+  const a = getVariant(top).antutu;
+  heroImg.src = top.image;
+  heroImg.alt = top.name;
+  document.getElementById('hero-sub').textContent =
+    `${top.name} • Total ${INT.format(a.total)} (CPU ${INT.format(a.cpu)}, GPU ${INT.format(a.gpu)}, MEM ${INT.format(a.mem)}, UX ${INT.format(a.ux)})`;
+  viewTopBtn.onclick = () => openModal(top.id);
+}
+
+function applyFilters() {
+  const q = (searchEl.value || '').toLowerCase();
+  const brand = filterBrandEl.value;
+  const chip = filterChipsetEl.value;
+  const minScore = Number(filterScoreEl.value || 0);
+
+  state.current = phones.filter(p =>
+    (!q || `${p.name} ${p.brand} ${p.chipset}`.toLowerCase().includes(q)) &&
+    (!brand || p.brand === brand) &&
+    (!chip || p.chipset === chip) &&
+    (totalScore(p) >= minScore)
+  );
+  renderCards(state.current);
+  updateHero();
+}
+searchEl.addEventListener('input', applyFilters);
+filterBrandEl.addEventListener('change', applyFilters);
+filterChipsetEl.addEventListener('change', applyFilters);
+filterScoreEl.addEventListener('change', applyFilters);
+
+// Initial render
+renderCards(state.current);
+updateHero();
+switchView('catalog');
+
+// Modal
+const modal = document.createElement('div');
+modal.className = 'modal';
+modal.innerHTML = `
+  <div class="modal-card" role="dialog" aria-modal="true" aria-label="Performance details">
+    <div class="modal-header">
+      <h4 id="modal-title"></h4>
+      <button class="close" id="close-modal" aria-label="Close">Close</button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <canvas id="scoreChart" class="chart-container" aria-label="Benchmark chart"></canvas>
+      </div>
+      <div>
+        <ul id="specs"></ul>
+        <div id="sources" class="meta"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <small>Benchmark breakdown: CPU, GPU, MEM, UX • Variant-aware totals displayed</small>
+    </div>
+  </div>
+`;
+document.body.appendChild(modal);
+document.getElementById('close-modal').onclick = () => modal.classList.remove('active');
+
+let chart;
+function openModal(id) {
+  const phone = phones.find(p => p.id === id);
+  if (!phone) return;
+  const v = getVariant(phone);
+  const a = v.antutu;
+
+  document.getElementById('modal-title').textContent = `${phone.name} — ${v.label}`;
+  const specsEl = document.getElementById('specs');
+  specsEl.innerHTML = `
+    <li><strong>Brand:</strong> ${phone.brand}</li>
+    <li><strong>Chipset:</strong> ${phone.chipset}</li>
+    <li><strong>Cores:</strong> ${phone.cores}</li>
+    <li><strong>Variant:</strong> ${v.label}</li>
+    <li><strong>Price:</strong> ${v.priceINR ? INR.format(v.priceINR) : '—'}</li>
+    <li><strong>Total score:</strong> ${INT.format(a.total)}</li>
+  `;
+  document.getElementById('sources').innerHTML = `<p><strong>Sources:</strong> ${phone.sources.join(', ')}</p>`;
+
+  const ctx = document.getElementById('scoreChart');
+  if (chart) chart.destroy();
+  chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['CPU', 'GPU', 'MEM', 'UX', 'Total'],
+      datasets: [{
+        label: 'AnTuTu v10',
+        data: [a.cpu, a.gpu, a.mem, a.ux, a.total],
+        backgroundColor: ['#3fb5ff','#3fff8f','#ffd43b','#c8a5ff','#ff7f50']
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true, ticks: { color: '#9fb0c0' }, grid: { color: '#1f2a36' } },
+        x: { ticks: { color: '#9fb0c0' }, grid: { color: '#1f2a36' } }
+      },
+      plugins: {
+        legend: { labels: { color: '#e6edf3' } },
+        tooltip: { callbacks: { label: ctx => INT.format(ctx.raw) } }
+      }
+    }
+  });
+  modal.classList.add('active');
+}
+
+// Card actions
+cardsEl.addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  const select = e.target.closest('select');
+  if (select && select.getAttribute('data-action') === 'variant') {
+    const id = select.getAttribute('data-id');
+    state.selectedVariantById[id] = Number(select.value);
+    renderCards(state.current);
+    updateHero();
+    return;
+  }
+  if (!btn) return;
+  const id = btn.getAttribute('data-id');
+  const action = btn.getAttribute('data-action');
+  if (action === 'view') openModal(id);
+  if (action === 'add-compare') addToCompare(id);
+}
+
+// Chipset overview
+function renderChipsetOverview() {
+  const container = document.getElementById('chipset-list');
+  const groups = {};
+  phones.forEach(p => {
+    const chip = p.chipset;
+    const a = getVariant(p).antutu;
+    if (!groups[chip]) groups[chip] = { devices: [], totals: [] };
+    groups[chip].devices.push({ id: p.id, name: p.name, brand: p.brand, total: a.total, image: p.image });
+    groups[chip].totals.push(a.total);
+  });
+  container.innerHTML = '';
+  Object.entries(groups).forEach(([chip, data]) => {
+    const avg = Math.round(data.totals.reduce((s, v) => s + v, 0) / data.totals.length);
+    const best = data.devices.slice().sort((a,b) => b.total - a.total)[0];
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${best.image}" alt="${chip}" loading="lazy">
+      <div class="card-body">
+        <div class="card-title">
+          <h4>${chip}</h4>
+          <span class="badge">Avg ${INT.format(avg)}</span>
+        </div>
+        <div class="meta">Top device: ${best.name} (${best.brand}) • ${INT.format(best.total)}</div>
+        <div class="spec"><span><strong>Devices:</strong> ${data.devices.length}</span><span><strong>Best:</strong> ${INT.format(best.total)}</span></div>
+      </div>
+      <div class="card-actions">
+        <button class="button" data-chip="${chip}" data-action="view-chip">View devices</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  container.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-action="view-chip"]');
+    if (!btn) return;
+    const chip = btn.getAttribute('data-chip');
+    filterChipsetEl.value = chip;
+    switchView('catalog');
+    applyFilters();
+  });
+}
+
+// Compare
+const compareSelectors = ['compare-a', 'compare-b', 'compare-c'].map(id => document.getElementById(id));
+const compareRunBtn = document.getElementById('compare-run');
+const compareKpiEl = document.getElementById('compare-kpi');
+const compareCanvas = document.getElementById('compareChart');
+let compareChart;
+
+function populateCompareSelectors() {
+  compareSelectors.forEach(sel => {
+    sel.innerHTML = `<option value="">Select device</option>` +
+      phones.map(p => `<option value="${p.id}">${p.name} (${getVariant(p).label})</option>`).join('');
+  });
+}
+function addToCompare(id) {
+  switchView('compare');
+  populateCompareSelectors();
+  for (const sel of compareSelectors) {
+    if (!sel.value) { sel.value = id; break; }
+  }
+}
+compareRunBtn.addEventListener('click', () => {
+  const ids = compareSelectors.map(sel => sel.value).filter(Boolean);
+  const selPhones = ids.map(id => phones.find(p => p.id === id)).filter(Boolean);
+  if (selPhones.length < 2) { alert('Select at least two devices to compare.'); return; }
+  compareKpiEl.innerHTML = selPhones.map(p => {
+    const a = getVariant(p).antutu;
+    return `
+      <div class="kpi">
+        <div class="pill"><div class="label">${p.name}</div><div class="value">Total ${INT.format(a.total)}</div></div>
+        <div class="pill"><div class="label">CPU</div><div class="value">${INT.format(a.cpu)}</div></div>
+        <div class="pill"><div class="label">GPU</div><div class="value">${INT.format(a.gpu)}</div></div>
+        <div class="pill"><div class="label">MEM</div><div class="value">${INT.format(a.mem)}</div></div>
+        <div class="pill"><div class="label">UX</div><div class="value">${INT.format(a.ux)}</div></div>
+      </div>
+    `;
+  }).join('');
+  const labels = ['CPU','GPU','MEM','UX','Total'];
+  const datasets = selPhones.map((p, i) => {
+    const a = getVariant(p).antutu;
+    const colors = ['#3fb5ff','#3fff8f','#ffd43b','#c8a5ff','#ff7f50','#ff6b6b'];
+    return { label: p.name, data: [a.cpu, a.gpu, a.mem, a.ux, a.total], backgroundColor: colors[i % colors.length], borderColor: colors[i % colors.length], borderWidth: 1 };
+  });
+  if (compareChart) compareChart.destroy();
+  compareChart = new Chart(compareCanvas, { type: 'bar', data: { labels, datasets }, options: {
+    responsive: true,
+    scales: { y: { beginAtZero: true, ticks: { color: '#9fb0c0' }, grid: { color: '#1f2a36' } }, x: { ticks: { color: '#9fb0c0' }, grid: { color: '#1f2a36' } } },
+    plugins: { legend: { labels: { color: '#e6edf3' } } }
+  }});
+});
