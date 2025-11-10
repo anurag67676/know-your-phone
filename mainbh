@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KNOW YOUR PHONE | Smartphone Performance Benchmarks</title>
+  <meta name="description" content="Explore smartphone performance: AnTuTu breakdowns, chipset details, variants, comparisons, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="app.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "KNOW YOUR PHONE",
+    "url": "https://example.com",
+    "description": "Smartphone performance benchmarks and chipset insights.",
+    "publisher": { "@type": "Organization", "name": "KNOW YOUR PHONE" }
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="brand" aria-label="Brand">
+      <span class="logo" aria-hidden="true">KYP</span>
+      <h1>KNOW YOUR PHONE</h1>
+    </div>
+    <nav class="nav">
+      <button class="nav-link active" data-view="catalog" aria-label="Catalog">Catalog</button>
+      <button class="nav-link" data-view="chipsets" aria-label="Chipsets">Chipsets</button>
+      <button class="nav-link" data-view="compare" aria-label="Compare">Compare</button>
+      <button class="nav-link" data-view="about" aria-label="About">About</button>
+    </nav>
+    <div class="controls" role="search">
+      <input id="search" type="search" placeholder="Search phones or chipsets…" aria-label="Search"/>
+      <select id="filter-brand" aria-label="Filter by brand">
+        <option value="">All brands</option>
+        <option>iQOO</option><option>vivo</option><option>OnePlus</option>
+        <option>Xiaomi</option><option>POCO</option><option>realme</option><option>Red Magic</option>
+      </select>
+      <select id="filter-chipset" aria-label="Filter by chipset">
+        <option value="">All chipsets</option>
+        <option>Snapdragon 8 Elite</option><option>Snapdragon 8 Gen 3</option>
+        <option>Dimensity 9400</option><option>Dimensity 9300+</option>
+      </select>
+      <select id="filter-score" aria-label="Filter by minimum AnTuTu score">
+        <option value="">All scores</option>
+        <option value="2000000">≥ 2,000,000</option>
+        <option value="2500000">≥ 2,500,000</option>
+        <option value="3000000">≥ 3,000,000</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero" aria-label="Top scorer">
+      <div class="hero-text">
+        <h2>Weekly top scorer</h2>
+        <p id="hero-sub">Latest AnTuTu breakdown for the top device.</p>
+        <button id="view-top" class="button primary" aria-label="View top device details">View details</button>
+      </div>
+      <div class="hero-image">
+        <img id="hero-img" alt="Top phone" loading="lazy" />
+      </div>
+    </section>
+
+    <section id="view-catalog" class="catalog" aria-label="Performance catalog">
+      <h3>Smartphone performance catalog</h3>
+      <div id="cards" class="grid"></div>
+    </section>
+
+    <section id="view-chipsets" class="chipsets hidden" aria-label="Chipset performance">
+      <h3>Chipsets overview</h3>
+      <div id="chipset-list" class="grid"></div>
+    </section>
+
+    <section id="view-compare" class="compare hidden" aria-label="Compare devices">
+      <h3>Compare devices</h3>
+      <div class="compare-controls">
+        <select id="compare-a"></select>
+        <select id="compare-b"></select>
+        <select id="compare-c"></select>
+        <button id="compare-run" class="button primary">Compare</button>
+      </div>
+      <div id="compare-results" class="compare-grid">
+        <div class="compare-kpi" id="compare-kpi"></div>
+        <canvas id="compareChart" class="chart-container" aria-label="Comparison chart"></canvas>
+      </div>
+    </section>
+
+    <section id="view-about" class="about hidden" aria-label="About site">
+      <h3>About KNOW YOUR PHONE</h3>
+      <p>
+        This site presents smartphone performance data with transparent sources and variant-aware scoring. Results can vary by RAM/storage, software version, and thermal conditions. Always verify against current benchmark listings.
+      </p>
+    </section>
+
+    <section class="disclaimer">
+      <p>
+        Scores are compiled from public benchmark rankings and manufacturer communications. Use them for relative comparison; device configurations affect totals.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-grid">
+      <div>
+        <strong>KNOW YOUR PHONE</strong>
+        <p class="muted">Performance-first smartphone insights.</p>
+      </div>
+      <div>
+        <p class="muted">Region: India • INR estimates shown where available.</p>
+      </div>
+    </div>
+    <small>© 2025 KNOW YOUR PHONE. Benchmarks belong to their respective owners.</small>
+  </footer>
+</body>
+</html>
